@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ReportProvider } from './context/ReportContext';
+import ErrorBoundary from './context/ErrorBoundary';
 
 const LoginScreen = React.lazy(() => import('./screens/LoginScreen'));
 const SignUpScreen = React.lazy(() => import('./screens/SignUpScreen'));
@@ -141,9 +142,11 @@ export default function App() {
   return (
     <AuthProvider>
       <ReportProvider>
-        <NavigationContainer>
-          <AppNavigator />
-        </NavigationContainer>
+        <ErrorBoundary>
+          <NavigationContainer>
+            <AppNavigator />
+          </NavigationContainer>
+        </ErrorBoundary>
       </ReportProvider>
     </AuthProvider>
   );
